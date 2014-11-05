@@ -1,0 +1,15 @@
+*.out
+*.o
+*.idea
+*.aux
+*.dvi
+*.log
+*.fls
+*latex*
+*.bak
+*synctex*
+*.py[cod]
+*.class
+cookies.*
+client_secrets*
+*.sln
