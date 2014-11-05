@@ -6,6 +6,6 @@ DevDays Fall-2014 project
 Requirements
 =========
 
-* ** IMDBpy library **
+* IMDBpy library
  + download from http://imdbpy.sourceforge.net/
  + sudo ./setup.py install
