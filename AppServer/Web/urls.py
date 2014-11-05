@@ -7,5 +7,6 @@ urlpatterns = patterns('',
                        # url(r'^blog/', include('blog.urls')),
 
                        url(r'^$', 'PredictMe.views.index', name='index'),
+                       url(r'^search/(?P<query>.*)$', 'PredictMe.views.search', name='search'),
                        url(r'^admin/', include(admin.site.urls)),
 )

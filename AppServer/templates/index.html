@@ -1,16 +1,30 @@
 {% extends "base.html" %}
 
 {% block body %}
-    <div class="container">
-        <div class="jumbotron">
-            <div>
-                <label for="sendText" class="control-label">Название фильма</label>
-                <input id="sendText" type="text" value="" class="input-lg"/>
-                <button id="buttonGetMovieInfo" class="btn btn-primary btn-lg">
-                    Получить информацию о фильме
+    <div class="jumbotron">
+        <div class="row">
+            <div class="col-xs-10">
+                <input id="txtSearch" type="text" class="form-control" placeholder="Введите название фильма">
+            </div>
+            <div class="col-xs-2">
+                <button id="buttonSearchMovies" class="btn btn-primary">
+                    Найти
                 </button>
             </div>
         </div>
     </div>
 
+    {% block search-results %}
+    {% endblock search-results %}
 {% endblock body %}
+
+{% block scripts %}
+  <script type="text/javascript">
+    $('#buttonSearchMovies').click(function () {
+        var query = $('#txtSearch').val();
+        if (query.length > 2) {
+            window.location = "/search/" + query
+        }
+    });
+  </script>
+{% endblock scripts %}
