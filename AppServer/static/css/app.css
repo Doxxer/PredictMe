@@ -1,0 +1,52 @@
+html, body {
+    height: 100%;
+    background-color: #F6F6F6;
+}
+
+.input-lg {
+    height: 40px;
+}
+
+.navbar {
+  background-color: #27AE60;
+  border-radius: 0;
+  border: none;
+  height: 80px;
+  margin-bottom: 0;
+  padding-top: 10px;
+}
+
+.navbar a {
+  font-size: 18px;
+}
+
+.navbar-default .navbar-brand,
+.navbar-default .navbar-brand:hover {
+  background-color: #27AE60;
+  color: #FFFFFF;
+}
+
+.navbar-default .navbar-nav > li > a,
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > li>a:focus {
+  background-color: #27AE60;
+  color: #FFFFFF;
+  margin: 3px;
+}
+
+
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav>.open>a:focus {
+  background-color: #27AE60;
+  border-radius: 8px;
+  border: 2px solid #FFFFFF;
+  color: #FFFFFF;
+  margin: 1px;
+}
+
+.navbar-default .navbar-nav>.active>a:hover,
+.navbar-default .navbar-nav>.active>a {
+  background-color: #FFFFFF;
+  border-radius: 8px;
+  color: #27AE60;
+}
