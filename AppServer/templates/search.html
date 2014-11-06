@@ -1,5 +1,28 @@
 {% extends "index.html" %}
+{% load extra_tags %}
 
 {% block search-results %}
-    {{ data }}
-{%  endblock search-results %}
+    <div class="row">
+        <div class="col-xs-12">
+            <table id="serp" class="table table-hover people-list">
+                <tr>
+                    <th>#</th>
+                    <th>Название</th>
+                    <th>Код фильма</th>
+                </tr>
+
+                {% for movie in movies %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>
+                            <a href="/movie/id/{{ movie.movieID }}">
+                                <span>{{ movie.extra_data.title }}</span>
+                            </a>
+                        </td>
+                        <td><span>{{ movie.movieID }}</span></td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+{% endblock search-results %}

@@ -8,5 +8,6 @@ urlpatterns = patterns('',
 
                        url(r'^$', 'PredictMe.views.index', name='index'),
                        url(r'^search/(?P<query>.*)$', 'PredictMe.views.search', name='search'),
+                       url(r'^movie/id/(?P<id>[0-9]+)$', 'PredictMe.views.movie', name='movie'),
                        url(r'^admin/', include(admin.site.urls)),
 )
