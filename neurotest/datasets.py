@@ -33,7 +33,7 @@ producers_cur = db.cursor()
 for actors_num in [1, 2, 3, 4, 5]:
     print actors_num
 
-    dataset = SupervisedDataSet(actors_num, 1)
+    dataset = SupervisedDataSet(3 + actors_num, 1)
     movies_cur.execute("DROP TABLE IF EXISTS RatedActors;")
 
     movies_cur.execute("""CREATE TABLE RatedActors AS
@@ -69,11 +69,11 @@ for actors_num in [1, 2, 3, 4, 5]:
                               ORDER BY rating desc limit 1""".format(movie[0]))
 
         actors_rates = tuple(actors_cur.fetchmany(actors_num)[0])
-        print actors_rates
+        # print actors_rates
         dataset.addSample((movie[2],) + actors_rates +
                           (producers_cur.fetchone()[0], directors_cur.fetchone()[0],), (movie[1],))
 
-    with open('dataset_' + actors_num + '.data', 'wb') as f:
+    with open('dataset_' + str(actors_num) + '.data', 'wb') as f:
         pickle.dump(dataset, f)
 
 movies_cur.close()
