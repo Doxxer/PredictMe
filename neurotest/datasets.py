@@ -8,8 +8,8 @@ from pybrain.datasets import SupervisedDataSet
 
 
 db = MySQLdb.connect(host="localhost"
-                     , user="root"
-                     , passwd="@Q:27182;Byte"
+                     , user="imdb2"
+                     , passwd="imdb2"
                      , db="imdb2")
 
 movies_cur = db.cursor()
