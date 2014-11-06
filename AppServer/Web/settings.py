@@ -23,6 +23,7 @@ SECRET_KEY = 'x4v^p^+w0$%yylz+yn6gshu7%e^ee$#hs@=!tive!rke(^vp(5'
 DEBUG = True
 FAKE_DATA = True
 DUMP_DATA = True
+ACTORS_MAX_COUNT = 10
 
 TEMPLATE_DEBUG = True
 
