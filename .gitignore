@@ -13,3 +13,5 @@
 cookies.*
 client_secrets*
 *.sln
+.DS_Store
+Data/.DS_Store
