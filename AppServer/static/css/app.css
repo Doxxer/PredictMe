@@ -3,9 +3,25 @@ html, body {
     background-color: #F6F6F6;
 }
 
+.progress-label {
+  color: #555;
+  font-size: 25px;
+  margin-bottom: 20px;
+}
+
 .input-lg {
     height: 40px;
     margin: 5px;
+}
+
+.movies-row:hover {
+    background-color: #dddddd;
+}
+
+.poster-img {
+  width: 200px;
+  height: 200px;
+  z-index: 2;
 }
 
 .navbar {

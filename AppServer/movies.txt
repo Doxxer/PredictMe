@@ -95,7 +95,7 @@ p49
 (dp50
 S'title'
 p51
-VMatrix, The (1999)
+VThe Matrix (1999)
 p52
 ssS'kind'
 p53
@@ -309,7 +309,7 @@ sg47
 g49
 (dp106
 g51
-VMatrix Reloaded, The (2003)
+VThe Matrix Reloaded (2003)
 p107
 ssg53
 g54
@@ -374,7 +374,7 @@ sg47
 g49
 (dp121
 g51
-VMatrix Revolutions, The (2003)
+VThe Matrix Revolutions (2003)
 p122
 ssg53
 g54
@@ -571,7 +571,7 @@ sg47
 g49
 (dp168
 g51
-VMatrix Online, The (2005) (VG)
+VThe Matrix Online (2005) (VG)
 p169
 ssg53
 g154
@@ -636,7 +636,7 @@ sg47
 g49
 (dp183
 g51
-VMatrix Revisited, The (2001) (V)
+VThe Matrix Revisited (2001) (V)
 p184
 ssg53
 Vvideo movie
@@ -833,7 +833,7 @@ sg47
 g49
 (dp230
 g51
-VLiving Matrix, The (2009)
+VThe Living Matrix (2009)
 p231
 ssg53
 g54
@@ -963,7 +963,7 @@ sg47
 g49
 (dp260
 g51
-V"Approval Matrix, The" (2014)
+V"The Approval Matrix" (2014)
 p261
 ssg53
 g138
@@ -1093,7 +1093,7 @@ sg47
 g49
 (dp290
 g51
-VMatrix: Path of Neo, The (2005) (VG)
+VThe Matrix: Path of Neo (2005) (VG)
 p291
 ssg53
 g154

@@ -4,7 +4,7 @@
 {% block search-results %}
     <div class="row">
         <div class="col-xs-12">
-            <table id="serp" class="table table-hover people-list">
+            <table id="serp" class="table">
                 <tr>
                     <th>#</th>
                     <th>Название</th>
@@ -12,7 +12,7 @@
                 </tr>
 
                 {% for movie in movies %}
-                    <tr>
+                    <tr class="movies-row">
                         <td>{{ forloop.counter }}</td>
                         <td>
                             <a href="/movie/id/{{ movie.movieID }}">

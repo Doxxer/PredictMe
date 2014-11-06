@@ -1,6 +1,6 @@
-# Create your views here.
 from django.shortcuts import render_to_response
-from PredictMe.movies_database import find_movies
+
+from PredictMe.movies_database import find_movies, get_movie_info
 
 
 def index(request):
@@ -21,4 +21,5 @@ def movie(request, id):
 
     :type id: str
     """
-    return render_to_response('movie.html')
+    movie = get_movie_info(id)
+    return render_to_response('movie.html', {'movie': movie})

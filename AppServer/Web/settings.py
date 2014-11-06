@@ -22,6 +22,7 @@ SECRET_KEY = 'x4v^p^+w0$%yylz+yn6gshu7%e^ee$#hs@=!tive!rke(^vp(5'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 FAKE_DATA = True
+DUMP_DATA = True
 
 TEMPLATE_DEBUG = True
 
