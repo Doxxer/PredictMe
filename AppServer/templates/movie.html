@@ -5,7 +5,7 @@
 
     <div class="row">
         <div class="col-xs-12">
-            <div id="name-label" class="progress-label">Фильм: {{ movie.title }}</div>
+            <div id="name-label" class="progress-label">{{ movie.title }}</div>
         </div>
     </div>
 
@@ -27,7 +27,7 @@
                 </tr>
                 <tr>
                     <td>SPbAU</td>
-                    <td><span>{{ movie.out_rating }}</span></td>
+                    <td><span>{{ movie.our_rating }}</span></td>
                 </tr>
             </table>
         </div>
@@ -57,7 +57,7 @@
                     <th>#</th>
                     <th>Name</th>
                 </tr>
-                {% for person in movie.director %}
+                {% for person in movie.directors %}
                     <tr>
                         <td>{{ forloop.counter }}</td>
                         <td><span>{{ person.name }}</span></td>
@@ -73,7 +73,7 @@
                     <th>#</th>
                     <th>Name</th>
                 </tr>
-                {% for person in movie.writer %}
+                {% for person in movie.writers %}
                     <tr>
                         <td>{{ forloop.counter }}</td>
                         <td><span>{{ person.name }}</span></td>

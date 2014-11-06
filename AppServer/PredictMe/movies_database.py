@@ -37,13 +37,26 @@ def get_person_name(movie, job):
     return cast
 
 
-def get_our_rating():
+def get_our_rating(year, cast, directors, writers):
+    def get_names(dictionary):
+        return [person['name'] for person in dictionary][:10]
+
+    cast = get_names(cast)
+    directors = get_names(directors)
+    writers = get_names(writers)
+
+    print year
+    print cast
+    print directors
+    print writers
+
     return 42.5
 
 
 def get_movie_info(movie_id):
     if FAKE_DATA:
         movie = pickle.load(open('the_matrix.txt', 'rb'))
+        movie['our_rating'] = get_our_rating(movie['year'], movie['cast'], movie['directors'], movie['writers'])
         return movie
 
     db = imdb.IMDb()
@@ -57,16 +70,18 @@ def get_movie_info(movie_id):
         })
 
     directors = get_person_name(movie, 'director')
+    writers = get_person_name(movie, 'writer')
+    year = movie['year']
 
     movie_object = {
         'title': movie['long imdb title'],
         'image': movie['full-size cover url'],
-        'director': directors,
-        'writer': get_person_name(movie, 'writer'),
+        'directors': directors,
+        'writers': writers,
         'cast': cast,
-        'our_rating': get_our_rating(),
+        'our_rating': get_our_rating(year, cast, directors, writers),
         'imdb_rating': movie['rating'],
-        'year': movie['year']
+        'year': year
     }
 
     if DUMP_DATA:
