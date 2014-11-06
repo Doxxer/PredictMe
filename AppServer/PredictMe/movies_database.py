@@ -2,7 +2,7 @@ import pickle
 
 import imdb
 
-from Web.settings import FAKE_DATA, DUMP_DATA
+from Web.settings import FAKE_DATA, DUMP_DATA, DEBUG, ACTORS_MAX_COUNT
 
 
 __author__ = 'doxer'
@@ -39,16 +39,17 @@ def get_person_name(movie, job):
 
 def get_our_rating(year, cast, directors, writers):
     def get_names(dictionary):
-        return [person['name'] for person in dictionary][:10]
+        return [person['name'] for person in dictionary][:ACTORS_MAX_COUNT]
 
     cast = get_names(cast)
     directors = get_names(directors)
     writers = get_names(writers)
 
-    print year
-    print cast
-    print directors
-    print writers
+    if DEBUG:
+        print year
+        print cast
+        print directors
+        print writers
 
     return 42.5
 

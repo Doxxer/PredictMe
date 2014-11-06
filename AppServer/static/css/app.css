@@ -67,3 +67,8 @@ html, body {
     border-radius: 8px;
     color: #27AE60;
 }
+
+.rating-label {
+    font-size: 20px;
+    color: #a94442;
+}
