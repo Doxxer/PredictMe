@@ -1,0 +1,305 @@
+(dp0
+S'cast'
+p1
+(lp2
+(dp3
+S'role'
+p4
+VNeo
+p5
+sS'name'
+p6
+VKeanu Reeves
+p7
+sa(dp8
+g4
+VMorpheus
+p9
+sg6
+VLaurence Fishburne
+p10
+sa(dp11
+g4
+VTrinity
+p12
+sg6
+VCarrie-Anne Moss
+p13
+sa(dp14
+g4
+VAgent Smith
+p15
+sg6
+VHugo Weaving
+p16
+sa(dp17
+g4
+VOracle
+p18
+sg6
+VGloria Foster
+p19
+sa(dp20
+g4
+VCypher
+p21
+sg6
+VJoe Pantoliano
+p22
+sa(dp23
+g4
+VTank
+p24
+sg6
+VMarcus Chong
+p25
+sa(dp26
+g4
+VApoc
+p27
+sg6
+VJulian Arahanga
+p28
+sa(dp29
+g4
+VMouse
+p30
+sg6
+VMatt Doran
+p31
+sa(dp32
+g4
+VSwitch
+p33
+sg6
+VBelinda McClory
+p34
+sa(dp35
+g4
+VDozer
+p36
+sg6
+VAnthony Ray Parker
+p37
+sa(dp38
+g4
+VAgent Brown
+p39
+sg6
+VPaul Goddard
+p40
+sa(dp41
+g4
+VAgent Jones
+p42
+sg6
+VRobert Taylor
+p43
+sa(dp44
+g4
+VRhineheart
+p45
+sg6
+VDavid Aston
+p46
+sa(dp47
+g4
+VChoi
+p48
+sg6
+VMarc Aden Gray
+p49
+sa(dp50
+g4
+VDujour
+p51
+sg6
+VAda Nicodemou
+p52
+sa(dp53
+g4
+VPriestess
+p54
+sg6
+VDeni Gordon
+p55
+sa(dp56
+g4
+VSpoon Boy
+p57
+sg6
+VRowan Witt
+p58
+sa(dp59
+g4
+VPotential
+p60
+sg6
+VEleanor Witt
+p61
+sa(dp62
+g4
+VPotential
+p63
+sg6
+VTamara Brown
+p64
+sa(dp65
+g4
+VPotential
+p66
+sg6
+VJanaya Pender
+p67
+sa(dp68
+g4
+VPotential
+p69
+sg6
+VAdryn White
+p70
+sa(dp71
+g4
+VPotential
+p72
+sg6
+VNatalie Tjen
+p73
+sa(dp74
+g4
+VLieutenant
+p75
+sg6
+VBill Young
+p76
+sa(dp77
+g4
+VFedEx Man
+p78
+sg6
+VDavid O'Connor
+p79
+sa(dp80
+g4
+VBusinessman
+p81
+sg6
+VJeremy Ball
+p82
+sa(dp83
+g4
+VWoman in Red
+p84
+sg6
+VFiona Johnson
+p85
+sa(dp86
+g4
+VOld Man
+p87
+sg6
+VHarry Lawrence
+p88
+sa(dp89
+g4
+VBlind Man
+p90
+sg6
+VSteve Dodd
+p91
+sa(dp92
+g4
+VSecurity Guard
+p93
+sg6
+VLuke Quinton
+p94
+sa(dp95
+g4
+VGuard
+p96
+sg6
+VLawrence Woodward
+p97
+sa(dp98
+g4
+VCop Who Captures Neo
+p99
+sg6
+VMichael Butcher
+p100
+sa(dp101
+g4
+VBig Cop
+p102
+sg6
+VBernard Ledger
+p103
+sa(dp104
+g4
+VCop
+p105
+sg6
+VRobert Simper
+p106
+sa(dp107
+g4
+VCop
+p108
+sg6
+VChris Pattinson
+p109
+sa(dp110
+g4
+VParking Cop
+p111
+sg6
+VNigel Harbach
+p112
+sa(dp113
+g4
+VShaylae - Woman in Office
+p114
+sg6
+VRana Morrison
+p115
+sasS'directors'
+p116
+(lp117
+(dp118
+g6
+VAndy Wachowski
+p119
+sa(dp120
+g6
+VLana Wachowski
+p121
+sasS'writers'
+p122
+(lp123
+(dp124
+g6
+VAndy Wachowski
+p125
+sa(dp126
+g6
+VLana Wachowski
+p127
+sasS'our_rating'
+p128
+F42.5
+sS'title'
+p129
+VThe Matrix (1999)
+p130
+sS'image'
+p131
+Vhttp://ia.media-imdb.com/images/M/MV5BMTkxNDYxOTA4M15BMl5BanBnXkFtZTgwNTk0NzQxMTE@.jpg
+p132
+sS'imdb_rating'
+p133
+F8.7
+sS'year'
+p134
+I1999
+s.
