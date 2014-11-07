@@ -12,3 +12,6 @@ Requirements
 * IMDBpy library
  + download from http://imdbpy.sourceforge.net/
  + sudo ./setup.py install
+* Neural networks
+ + MySQLdb (python2 module) — https://pypi.python.org/pypi/MySQL-python/
+ + pybrain (python2 module) from http://pybrain.org/docs/
