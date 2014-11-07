@@ -90,6 +90,8 @@ def trainNetwork(dataset, dim):
 def computeMovieRating(movie_year, actors, writers, directors):
     features, actor_dim = get_rating(actors, directors, writers)
 
+    print features, actor_dim
+
     neuronet_file = os.path.join(os.path.dirname(__file__), 'neuronet_{0}.data'.format(str(actor_dim)))
     dataset_file = os.path.join(os.path.dirname(__file__), 'dataset_{0}.data'.format(str(actor_dim)))
 
