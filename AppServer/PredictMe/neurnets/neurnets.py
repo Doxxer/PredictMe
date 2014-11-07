@@ -5,7 +5,7 @@ from pybrain.supervised.trainers import BackpropTrainer
 from pybrain.datasets import SupervisedDataSet
 import os
 import pickle
-#from PredictMe.ratingExtractor.ratingExtractor import get_rating
+from PredictMe.ratingExtractor.ratingExtractor import get_rating
 
 
 def fill_subdataset(db, movies_cur, actors_cur, directors_cur, writers_cur, actors_num, dataset, minrate, maxrate):
@@ -117,7 +117,7 @@ def computeMovieRating(movie_year, actors, writers, directors):
         raise
     return movie_rating[0]
 
-#if __name__ == "__main__":
-#    print computeMovieRating(0, 0, 0, 0)
+if __name__ == "__main__":
+    print computeMovieRating(0, 0, 0, 0)
 
 
