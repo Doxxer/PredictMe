@@ -17,6 +17,7 @@ Requirements
  + pybrain (python2 module) from http://pybrain.org/docs/ (dependency: SciPy module — http://www.scipy.org/install.html)
 * App server
  + Django - https://docs.djangoproject.com/en/1.7/intro/install/
+ + скачать дамп бд http://dropmefiles.com/cgwYX
 
 How to run
 =========
