@@ -5,7 +5,7 @@ from pybrain.supervised.trainers import BackpropTrainer
 from pybrain.datasets import SupervisedDataSet
 import os
 import pickle
-from PredictMe.ratingExtractor.ratingExtractor import get_rating
+#from PredictMe.ratingExtractor.ratingExtractor import get_rating
 
 
 def fill_subdataset(db, movies_cur, actors_cur, directors_cur, writers_cur, actors_num, dataset, minrate, maxrate):
@@ -87,7 +87,7 @@ def create_datasets():
 
 
 def trainNetwork(dataset, dim):
-    net = buildNetwork(3 + dim, 3 + dim, 1)
+    net = buildNetwork(2 + dim, 2 + dim, 1)
     trainer = BackpropTrainer(net, dataset)
     trainer.trainEpochs(10)
     return net
@@ -104,20 +104,20 @@ def computeMovieRating(movie_year, actors, writers, directors):
     if os.path.isfile(neuronet_file):
         with open(neuronet_file, 'r') as f:
             net = pickle.load(f)
-        movie_rating = net.activate((movie_year,) + features)
+        movie_rating = net.activate(features)
     elif os.path.isfile(dataset_file):
         with open(dataset_file, 'r') as f:
             dataset = pickle.load(f)
         net = trainNetwork(dataset, actor_dim)
         with open(neuronet_file, 'wb') as f:
             pickle.dump(net, f)
-        movie_rating = net.activate((movie_year,) + features)
+        movie_rating = net.activate(features)
     else:
         print "Dataset for dimension " + str(actor_dim) + " doesn't exist."
         raise
     return movie_rating[0]
 
-if __name__ == "__main__":
-    print computeMovieRating(0, 0, 0, 0)
+#if __name__ == "__main__":
+#    print computeMovieRating(0, 0, 0, 0)
 
 
