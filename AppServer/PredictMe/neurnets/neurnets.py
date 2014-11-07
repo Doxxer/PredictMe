@@ -87,7 +87,7 @@ def create_datasets():
 
 
 def trainNetwork(dataset, dim):
-    net = buildNetwork(2 + dim, 2 + dim, 1)
+    net = buildNetwork(2 + dim, 12 + dim, 1)
     trainer = BackpropTrainer(net, dataset)
     trainer.trainEpochs(10)
     return net
