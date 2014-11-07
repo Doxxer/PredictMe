@@ -8,7 +8,6 @@ Requirements
 
 * Mysql server
  + пароль, имя пользователя, название базы -  imdb2 
- + соответственно mysql -u imdb2 -p -f imdb2 < /path/to/new.sql
 * IMDBpy library
  + download from http://imdbpy.sourceforge.net/
  + sudo ./setup.py install
@@ -18,6 +17,7 @@ Requirements
 * App server
  + Django - https://docs.djangoproject.com/en/1.7/intro/install/
  + скачать дамп бд http://dropmefiles.com/cgwYX
+ + выполнить mysql -u imdbFULL -p -f imdbFULL < /path/to/new.sql
 
 How to run
 =========
