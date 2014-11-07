@@ -72,3 +72,13 @@ html, body {
     font-size: 20px;
     color: #a94442;
 }
+
+.shadow img:hover {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 10);
+    -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 10);
+    -moz-box-shadow: 0 0 20px rgba(0, 0, 0, 10);
+    background: #b9b9b9;
+    opacity: 0.6;
+    -moz-opacity: 0.6;
+    filter: alpha(opacity=60);
+}
