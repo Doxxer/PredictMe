@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin python2
 
 import MySQLdb
 import pickle
@@ -6,21 +6,20 @@ import pickle
 db = MySQLdb.connect(host="localhost"
                      , user="root"
                      , passwd="1kchtp7"
-                     , db="ratings")
-
-#def getRatings( actors, writers, directs):
-#	for act in 
+                     , db="imdb")
+                     
 
 def handleActors(actors):
 	ans = []
 	ratings = db.cursor()
 	for act in actors:
 		params = act.split(" ")
+		name = params[1] + ", " + params[0]
 		ratings.execute("""select
 		  ratedActors.actor_rating
 		from allNames
 		  inner join ratedActors on allNames.person_id = ratedActors.person_id 
-		where allNames.name like %s and allNames.name like %s;""", ("%"+params[0]+"%", "%"+params[1]+"%"))		
+		where allNames.name = %s;""", (name))		
 		res =	ratings.fetchone()
 		if res is not None:
 			ans.append(res[0])
@@ -36,11 +35,12 @@ def handleWriters(actors):
 	ratings = db.cursor()
 	for act in actors:
 		params = act.split(" ")
+		name = params[1] + ", " + params[0]
 		ratings.execute("""select
 		  ratedWriters.writer_rating
 		from allNames
 		  inner join ratedWriters on allNames.person_id = ratedWriters.person_id 
-		where allNames.name like %s and allNames.name like %s;""", ("%"+params[0]+"%", "%"+params[1]+"%"))		
+		where allNames.name = %s;""", (name))		
 		res =	ratings.fetchone()
 		if res is not None:
 			ans.append(res[0])
@@ -55,11 +55,12 @@ def handleDirectors(actors):
 	ratings = db.cursor()
 	for act in actors:
 		params = act.split(" ")
+		name = params[1] + ", " + params[0]
 		ratings.execute("""select
 		  ratedDirectors.director_rating
 		from allNames
 		  inner join ratedDirectors on allNames.person_id = ratedDirectors.person_id 
-		where allNames.name like %s and allNames.name like %s;""", ("%"+params[0]+"%", "%"+params[1]+"%"))		
+		where allNames.name = %s;""", (name))		
 		res =	ratings.fetchone()
 		if res is not None:
 			ans.append(res[0])
@@ -77,10 +78,12 @@ def ratingsExtractor(actors, directors, writers):
 	ans.append(writersRating)
 	return (ans, length)
 
-#actors = ["Keanu Reeves",  "Rosamund Pike", "Neil Patrick Harris", "Ben Affleck"] 
-#directors = ["David Fincher"]
-#writers = ["David Fincher"]
-#print getRatings(actors, directors, writers)
+
+if __name__ == "__main__":
+	actors = ["Keanu Reeves", "Rosamund Pike", "Neil Patrick Harris", "Ben Affleck"] 
+	directors = ["David Fincher"]
+	writers = ["David Fincher"]
+	print ratingsExtractor(actors, directors, writers)
 	
 
 
