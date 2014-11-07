@@ -9,8 +9,8 @@ import pickle
 
 def create_datasets():
     db = MySQLdb.connect(host="localhost"
-                         , user="root"
-                         , passwd="@Q:27182;Byte"
+                         , user="imdb"
+                         , passwd="imdb"
                          , db="imdb")
 
     movies_cur = db.cursor()
