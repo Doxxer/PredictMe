@@ -18,7 +18,7 @@ def handle_actors(actors):
         ratedActors.actor_rating
         from allNames
         inner join ratedActors on allNames.person_id = ratedActors.person_id
-        where allNames.name = %s;""", name)
+        where allNames.name = '{0}';""".format(name))
         res = ratings.fetchone()
         if res is not None:
             ans.append(res[0])
@@ -39,7 +39,7 @@ def handle_writers(actors):
         ratedWriters.writer_rating
         from allNames
         inner join ratedWriters on allNames.person_id = ratedWriters.person_id
-        where allNames.name = %s;""", name)
+        where allNames.name = '{0}';""".format(name))
         res = ratings.fetchone()
         if res is not None:
             ans.append(res[0])
@@ -58,7 +58,7 @@ def handle_directors(actors):
         ratedDirectors.director_rating
         from allNames
         inner join ratedDirectors on allNames.person_id = ratedDirectors.person_id
-        where allNames.name = %s;""", name)
+        where allNames.name = '{0}';""".format(name))
         res = ratings.fetchone()
         if res is not None:
             ans.append(res[0])
@@ -74,7 +74,7 @@ def get_rating(actors, directors, writers):
     writers_rating = handle_writers(writers)
     ans.append(directors_rating)
     ans.append(writers_rating)
-    return ans, length
+    return tuple(ans), length
 
 
 if __name__ == "__main__":
