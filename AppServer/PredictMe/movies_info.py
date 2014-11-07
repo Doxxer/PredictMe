@@ -41,7 +41,7 @@ def get_person_name(movie, job):
     return cast
 
 
-def get_our_rating(year, cast, directors, writers):
+def get_neutron_rating(year, cast, directors, writers):
     def get_names(dictionary):
         return [person['name'] for person in dictionary][:ACTORS_MAX_COUNT]
 
@@ -101,7 +101,7 @@ def get_movie_info(movie_id):
         'directors': directors,
         'writers': writers,
         'cast': cast,
-        'our_rating': get_our_rating(year, cast, directors, writers),
+        'our_rating': get_neutron_rating(year, cast, directors, writers),
         'imdb_rating': movie_rating,
         'year': year
     }
