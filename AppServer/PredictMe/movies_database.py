@@ -51,7 +51,7 @@ def get_our_rating(year, cast, directors, writers):
         print directors
         print writers
 
-    return 42.5
+    return 146.3
 
 
 def get_movie_info(movie_id):
@@ -67,7 +67,7 @@ def get_movie_info(movie_id):
     for artist in movie['cast']:
         cast.append({
             'name': artist['long imdb name'],
-            'role': artist.currentRole['name']
+            'role': artist.currentRole
         })
 
     directors = get_person_name(movie, 'director')
