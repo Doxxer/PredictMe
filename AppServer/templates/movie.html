@@ -1,35 +1,38 @@
 {% extends "base.html" %}
-{% load extra_tags %}
+{% load static %}
 
 {% block body %}
 
-    <div class="row">
-        <div class="col-xs-12">
-            <div id="name-label" class="progress-label">{{ movie.title }}</div>
-        </div>
-    </div>
+
 
     <div class="row">
         <div id="name-label" class="col-xs-4">
             <div class="badge">
-                <img title="poster" src="{{ movie.image }}" class="poster-img"/>
+                <img title="poster" src="{% static "images" %}/{{ movie.id }}.jpg" class="poster-img"/>
             </div>
         </div>
         <div class="col-xs-8">
-            <table id="ratings" class="table">
-                <tr>
-                    <th>Rating system</th>
-                    <th>Value</th>
-                </tr>
-                <tr>
-                    <td>IMDB</td>
-                    <td><span class="rating-label">{{ movie.imdb_rating }}</span></td>
-                </tr>
-                <tr>
-                    <td>SPbAU</td>
-                    <td><span class="rating-label">{{ movie.our_rating }}</span></td>
-                </tr>
-            </table>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div id="name-label" class="progress-label">{{ movie.title }}</div>
+                </div>
+            </div>
+            <div class="row">
+                <table id="ratings" class="table">
+                    <tr>
+                        <th>Rating system</th>
+                        <th>Value</th>
+                    </tr>
+                    <tr>
+                        <td>IMDB</td>
+                        <td><span class="rating-label">{{ movie.imdb_rating }}</span></td>
+                    </tr>
+                    <tr>
+                        <td>SPbAU</td>
+                        <td><span class="rating-label">{{ movie.our_rating }}</span></td>
+                    </tr>
+                </table>
+            </div>
         </div>
     </div>
 
@@ -37,10 +40,10 @@
         <div class="col-xs-4">
             <h4><span>Cast</span></h4>
             <table id="cast" class="table">
-                <tr>
-                    <th>#</th>
-                    <th>Name</th>
-                </tr>
+                {#                <tr>#}
+                {#                    <th>#</th>#}
+                {#                    <th>Name</th>#}
+                {#                </tr>#}
                 {% for person in movie.cast %}
                     <tr>
                         <td>{{ forloop.counter }}</td>
@@ -53,10 +56,10 @@
         <div class="col-xs-4">
             <h4><span>Directors</span></h4>
             <table id="directors" class="table">
-                <tr>
-                    <th>#</th>
-                    <th>Name</th>
-                </tr>
+                {#                <tr>#}
+                {#                    <th>#</th>#}
+                {#                    <th>Name</th>#}
+                {#                </tr>#}
                 {% for person in movie.directors %}
                     <tr>
                         <td>{{ forloop.counter }}</td>
@@ -69,10 +72,10 @@
         <div class="col-xs-4">
             <h4><span>Writers</span></h4>
             <table id="writers" class="table">
-                <tr>
-                    <th>#</th>
-                    <th>Name</th>
-                </tr>
+                {#                <tr>#}
+                {#                    <th>#</th>#}
+                {#                    <th>Name</th>#}
+                {#                </tr>#}
                 {% for person in movie.writers %}
                     <tr>
                         <td>{{ forloop.counter }}</td>

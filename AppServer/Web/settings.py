@@ -10,6 +10,7 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
@@ -21,8 +22,8 @@ SECRET_KEY = 'x4v^p^+w0$%yylz+yn6gshu7%e^ee$#hs@=!tive!rke(^vp(5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-FAKE_DATA = True
-DUMP_DATA = True
+FAKE_DATA = False
+DUMP_DATA = False
 ACTORS_MAX_COUNT = 10
 
 TEMPLATE_DEBUG = True
@@ -89,6 +90,8 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static/'),
 )
+
+IMAGES_DIR = os.path.join(STATICFILES_DIRS[0], 'images')
 
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'templates'),
