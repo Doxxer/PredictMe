@@ -33,10 +33,11 @@ def find_movies(query):
 
 def get_person_name(movie, job):
     cast = []
-    for person in movie[job]:
-        cast.append({
-            'name': person['long imdb name'],
-        })
+    if movie.has_key(job):
+        for person in movie[job]:
+            cast.append({
+                'name': person['long imdb name'],
+            })
     return cast
 
 
@@ -68,6 +69,10 @@ def save_image(movie_id, url):
             image.write(urllib.urlopen(url).read())
 
 
+def get_movie_feature(movie, param):
+    return movie[param] if movie.has_key(param) else None
+
+
 def get_movie_info(movie_id):
     if FAKE_DATA:
         movie = pickle.load(open('the_matrix.txt', 'rb'))
@@ -86,13 +91,13 @@ def get_movie_info(movie_id):
 
     directors = get_person_name(movie, 'director')
     writers = get_person_name(movie, 'writer')
-    year = movie['year']
-    save_image(movie_id, movie['full-size cover url'] if movie.has_key('full-size cover url') else None)
+    year = get_movie_feature(movie, 'year')
+    save_image(movie_id, get_movie_feature(movie, 'full-size cover url'))
     movie_rating = movie['rating'] if movie.has_key('rating') else '---'
 
     movie_object = {
         'id': movie_id,
-        'title': movie['long imdb title'],
+        'title': get_movie_feature(movie, 'long imdb title'),
         'directors': directors,
         'writers': writers,
         'cast': cast,
