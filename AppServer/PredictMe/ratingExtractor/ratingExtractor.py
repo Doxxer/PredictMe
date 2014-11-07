@@ -51,7 +51,7 @@ def handle_actors_for_regression(actors):
                 ans[2] += 1
             else:
                 ans[3] += 1
-        return ans
+    return ans
 
 
 def handle_writers(actors):
