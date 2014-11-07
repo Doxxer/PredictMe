@@ -3,12 +3,12 @@
 import MySQLdb
 
 
-db = MySQLdb.connect(host="localhost"
-                     , user="root"
-                     , db="imdb")
+db = MySQLdb.connect(host="localhost",
+                     user="root",
+                     db="imdb")
 
 
-def handleActors(actors):
+def handle_actors(actors):
     ans = []
     ratings = db.cursor()
     for act in actors:
@@ -29,17 +29,17 @@ def handleActors(actors):
     return ans
 
 
-def handleWriters(actors):
+def handle_writers(actors):
     ans = []
     ratings = db.cursor()
     for act in actors:
         params = act.split(" ")
         name = params[1] + ", " + params[0]
         ratings.execute("""select
-		  ratedWriters.writer_rating
-		from allNames
-		  inner join ratedWriters on allNames.person_id = ratedWriters.person_id 
-		where allNames.name = %s;""", (name))
+        ratedWriters.writer_rating
+        from allNames
+        inner join ratedWriters on allNames.person_id = ratedWriters.person_id
+        where allNames.name = %s;""", name)
         res = ratings.fetchone()
         if res is not None:
             ans.append(res[0])
@@ -48,17 +48,17 @@ def handleWriters(actors):
     return sum(ans) / len(ans)
 
 
-def handleDirectors(actors):
+def handle_directors(actors):
     ans = []
     ratings = db.cursor()
     for act in actors:
         params = act.split(" ")
         name = params[1] + ", " + params[0]
         ratings.execute("""select
-		  ratedDirectors.director_rating
-		from allNames
-		  inner join ratedDirectors on allNames.person_id = ratedDirectors.person_id 
-		where allNames.name = %s;""", (name))
+        ratedDirectors.director_rating
+        from allNames
+        inner join ratedDirectors on allNames.person_id = ratedDirectors.person_id
+        where allNames.name = %s;""", name)
         res = ratings.fetchone()
         if res is not None:
             ans.append(res[0])
@@ -67,18 +67,17 @@ def handleDirectors(actors):
     return sum(ans) / len(ans)
 
 
-def ratingsExtractor(actors, directors, writers):
-    ans = handleActors(actors)
+def get_rating(actors, directors, writers):
+    ans = handle_actors(actors)
     length = len(ans)
-    directorsRating = handleDirectors(directors)
-    writersRating = handleWriters(writers)
-    ans.append(directorsRating)
-    ans.append(writersRating)
-    return (ans, length)
+    directors_rating = handle_directors(directors)
+    writers_rating = handle_writers(writers)
+    ans.append(directors_rating)
+    ans.append(writers_rating)
+    return ans, length
 
 
 if __name__ == "__main__":
-    actors = ["Keanu Reeves", "Rosamund Pike", "Neil Patrick Harris", "Ben Affleck"]
-    directors = ["David Fincher"]
-    writers = ["David Fincher"]
-    print ratingsExtractor(actors, directors, writers)
+    print get_rating(["Keanu Reeves", "Rosamund Pike", "Neil Patrick Harris", "Ben Affleck"],
+                     ["David Fincher"],
+                     ["David Fincher"])
