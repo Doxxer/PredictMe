@@ -62,9 +62,8 @@ def get_our_rating(year, cast, directors, writers):
 
 def save_image(movie_id, url):
     image_filename = os.path.join(IMAGES_DIR, '{0}.jpg'.format(movie_id))
-    print image_filename
 
-    if not os.path.isfile(image_filename):
+    if not os.path.isfile(image_filename) and url:
         with open(image_filename, 'wb') as image:
             image.write(urllib.urlopen(url).read())
 
@@ -72,23 +71,24 @@ def save_image(movie_id, url):
 def get_movie_info(movie_id):
     if FAKE_DATA:
         movie = pickle.load(open('the_matrix.txt', 'rb'))
-        movie['our_rating'] = get_our_rating(movie['year'], movie['cast'], movie['directors'], movie['writers'])
-        return movie
-
-    db = imdb.IMDb()
-    movie = db.get_movie(movie_id, info='main')
+    else:
+        movie = imdb.IMDb().get_movie(movie_id, info='main')
+        if DUMP_DATA:
+            pickle.dump(movie, open('the_matrix.txt', 'wb'))
 
     cast = []
-    for artist in movie['cast']:
-        cast.append({
-            'name': artist['long imdb name'],
-            'role': artist.currentRole
-        })
+    if movie.has_key('cast'):
+        for artist in movie['cast']:
+            cast.append({
+                'name': artist['long imdb name'],
+                'role': artist.currentRole
+            })
 
     directors = get_person_name(movie, 'director')
     writers = get_person_name(movie, 'writer')
     year = movie['year']
-    save_image(movie_id, movie['full-size cover url'])
+    save_image(movie_id, movie['full-size cover url'] if movie.has_key('full-size cover url') else None)
+    movie_rating = movie['rating'] if movie.has_key('rating') else '---'
 
     movie_object = {
         'id': movie_id,
@@ -97,10 +97,8 @@ def get_movie_info(movie_id):
         'writers': writers,
         'cast': cast,
         'our_rating': get_our_rating(year, cast, directors, writers),
-        'imdb_rating': movie['rating'],
+        'imdb_rating': movie_rating,
         'year': year
     }
 
-    if DUMP_DATA:
-        pickle.dump(movie_object, open('the_matrix.txt', 'wb'))
     return movie_object
