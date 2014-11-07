@@ -1,6 +1,6 @@
 from django.shortcuts import render_to_response
 
-from PredictMe.movies_database import find_movies, get_movie_info
+from PredictMe.movies_info import find_movies, get_movie_info
 
 
 def index(request):

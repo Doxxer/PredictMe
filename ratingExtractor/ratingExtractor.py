@@ -1,13 +1,25 @@
+<<<<<<< HEAD
 #!/usr/bin python2
+=======
+#!/usr/bin/python
+>>>>>>> 599ac179a85479bb8e52ecc35af48883cc84cc31
 
 import MySQLdb
 import pickle
 
 db = MySQLdb.connect(host="localhost"
                      , user="root"
+<<<<<<< HEAD
                      , passwd="1kchtp7"
                      , db="imdb")
                      
+=======
+#                     , passwd="1kchtp7"
+                     , db="ratings")
+
+#def getRatings( actors, writers, directs):
+#	for act in 
+>>>>>>> 599ac179a85479bb8e52ecc35af48883cc84cc31
 
 def handleActors(actors):
 	ans = []
@@ -78,12 +90,20 @@ def ratingsExtractor(actors, directors, writers):
 	ans.append(writersRating)
 	return (ans, length)
 
+<<<<<<< HEAD
 
 if __name__ == "__main__":
 	actors = ["Keanu Reeves", "Rosamund Pike", "Neil Patrick Harris", "Ben Affleck"] 
 	directors = ["David Fincher"]
 	writers = ["David Fincher"]
 	print ratingsExtractor(actors, directors, writers)
+=======
+if __name__ == "__main__":
+    actors = ["Keanu Reeves",  "Rosamund Pike", "Neil Patrick Harris", "Ben Affleck"]
+    directors = ["David Fincher"]
+    writers = ["David Fincher"]
+    print ratingsExtractor(actors, directors, writers)
+>>>>>>> 599ac179a85479bb8e52ecc35af48883cc84cc31
 	
 
 
