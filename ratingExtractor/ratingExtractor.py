@@ -1,11 +1,11 @@
-#!/usr/bin/env python2
+#!/usr/bin/python
 
 import MySQLdb
 import pickle
 
 db = MySQLdb.connect(host="localhost"
                      , user="root"
-                     , passwd="1kchtp7"
+#                     , passwd="1kchtp7"
                      , db="ratings")
 
 #def getRatings( actors, writers, directs):
@@ -77,10 +77,11 @@ def ratingsExtractor(actors, directors, writers):
 	ans.append(writersRating)
 	return (ans, length)
 
-#actors = ["Keanu Reeves",  "Rosamund Pike", "Neil Patrick Harris", "Ben Affleck"] 
-#directors = ["David Fincher"]
-#writers = ["David Fincher"]
-#print getRatings(actors, directors, writers)
+if __name__ == "__main__":
+    actors = ["Keanu Reeves",  "Rosamund Pike", "Neil Patrick Harris", "Ben Affleck"]
+    directors = ["David Fincher"]
+    writers = ["David Fincher"]
+    print ratingsExtractor(actors, directors, writers)
 	
 
 

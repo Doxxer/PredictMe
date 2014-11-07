@@ -7,6 +7,7 @@ import os
 import pickle
 
 
+
 def create_datasets():
     db = MySQLdb.connect(host="localhost"
                          , user="imdb"
@@ -92,19 +93,25 @@ def ratingsExtractor(actors, writers, directors):  # fake function
 
 def computeMovieRating(movie_year, actors, writers, directors):
     features, actor_dim = ratingsExtractor(actors, writers, directors)
-    if os.path.isfile('neuronet_' + str(actor_dim) + '.data'):
-        with open('neuronet_' + str(actor_dim) + '.data', 'r') as f:
+
+    neuronet_file = os.path.join(os.path.dirname(__file__), 'neuronet_{0}.data'.format(str(actor_dim)))
+    dataset_file = os.path.join(os.path.dirname(__file__), 'dataset_{0}.data'.format(str(actor_dim)))
+
+    if os.path.isfile(neuronet_file):
+        with open(neuronet_file, 'r') as f:
             net = pickle.load(f)
         movie_rating = net.activate((movie_year,) + features)
-    elif os.path.isfile('dataset_' + str(actor_dim) + '.data'):
-        with open('dataset_' + str(actor_dim) + '.data', 'r') as f:
+    elif os.path.isfile(dataset_file):
+        with open(dataset_file, 'r') as f:
             dataset = pickle.load(f)
         net = trainNetwork(dataset, actor_dim)
-        with open('neuronet_' + str(actor_dim) + '.data', 'wb') as f:
+        with open(neuronet_file, 'wb') as f:
             pickle.dump(net, f)
         movie_rating = net.activate((movie_year,) + features)
     else:
         print "Dataset for dimension " + str(actor_dim) + " doesn't exist."
         raise
-    return movie_rating
+    return movie_rating[0]
 
+if __name__ == "__main__":
+    print computeMovieRating(0, 0, 0, 0)

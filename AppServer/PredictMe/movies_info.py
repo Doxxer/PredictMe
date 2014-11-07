@@ -1,8 +1,11 @@
+import os
 import pickle
+import urllib
 
 import imdb
 
-from Web.settings import FAKE_DATA, DUMP_DATA, DEBUG, ACTORS_MAX_COUNT
+from PredictMe.neurnets.neurnets import computeMovieRating
+from Web.settings import FAKE_DATA, DUMP_DATA, DEBUG, ACTORS_MAX_COUNT, IMAGES_DIR
 
 
 __author__ = 'doxer'
@@ -45,13 +48,25 @@ def get_our_rating(year, cast, directors, writers):
     directors = get_names(directors)
     writers = get_names(writers)
 
+    rating = round(computeMovieRating(year, cast, writers, directors), 1)
+
     if DEBUG:
         print year
         print cast
         print directors
         print writers
+        print rating
 
-    return 146.3
+    return rating
+
+
+def save_image(movie_id, url):
+    image_filename = os.path.join(IMAGES_DIR, '{0}.jpg'.format(movie_id))
+    print image_filename
+
+    if not os.path.isfile(image_filename):
+        with open(image_filename, 'wb') as image:
+            image.write(urllib.urlopen(url).read())
 
 
 def get_movie_info(movie_id):
@@ -73,10 +88,11 @@ def get_movie_info(movie_id):
     directors = get_person_name(movie, 'director')
     writers = get_person_name(movie, 'writer')
     year = movie['year']
+    save_image(movie_id, movie['full-size cover url'])
 
     movie_object = {
+        'id': movie_id,
         'title': movie['long imdb title'],
-        'image': movie['full-size cover url'],
         'directors': directors,
         'writers': writers,
         'cast': cast,
