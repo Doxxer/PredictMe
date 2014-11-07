@@ -5,14 +5,14 @@ from pybrain.supervised.trainers import BackpropTrainer
 from pybrain.datasets import SupervisedDataSet
 import os
 import pickle
-
+from PredictMe.ratingExtractor.ratingExtractor import get_rating
 
 
 def create_datasets():
-    db = MySQLdb.connect(host="localhost"
-                         , user="imdb"
-                         , passwd="imdb"
-                         , db="imdb")
+    db = MySQLdb.connect(host="localhost",
+                         user="imdb",
+                         passwd="imdb",
+                         db="imdb")
 
     movies_cur = db.cursor()
     actors_cur = db.cursor()
@@ -87,12 +87,8 @@ def trainNetwork(dataset, dim):
     return net
 
 
-def ratingsExtractor(actors, writers, directors):  # fake function
-    return (6.7, 5.7, 8.6), 1
-
-
 def computeMovieRating(movie_year, actors, writers, directors):
-    features, actor_dim = ratingsExtractor(actors, writers, directors)
+    features, actor_dim = get_rating(actors, directors, writers)
 
     neuronet_file = os.path.join(os.path.dirname(__file__), 'neuronet_{0}.data'.format(str(actor_dim)))
     dataset_file = os.path.join(os.path.dirname(__file__), 'dataset_{0}.data'.format(str(actor_dim)))
