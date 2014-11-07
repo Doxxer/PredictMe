@@ -1,15 +1,66 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block body %}
-    <div class="jumbotron">
-        <div class="row">
-            <div class="col-xs-10">
-                <input id="txtSearch" type="text" class="form-control" placeholder="Введите название фильма" value="the matrix">
+    <div class="row">
+        <div clas="row">
+            <div class="col-md-2">
+                <a href="/movie/id/2310332">
+                    <div class="badge">
+                        <img title="poster" src="{% static "images" %}/2310332.jpg" class="poster-img"/>
+                    </div>
+                </a>
             </div>
-            <div class="col-xs-2">
-                <button id="buttonSearchMovies" class="btn btn-primary">
-                    Найти
-                </button>
+            <div class="col-md-2">
+                <a href="/movie/id/1951265">
+                    <div class="badge">
+                        <img title="poster" src="{% static "images" %}/1951265.jpg" class="poster-img"/>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-2">
+                <a href="/movie/id/2488496">
+                    <div class="badge">
+                        <img title="poster" src="{% static "images" %}/2488496.jpg" class="poster-img"/>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-2">
+                <a href="/movie/id/2975590">
+                    <div class="badge">
+                        <img title="poster" src="{% static "images" %}/2975590.jpg" class="poster-img"/>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-2">
+                <a href="/movie/id/0974015">
+                    <div class="badge">
+                        <img title="poster" src="{% static "images" %}/0974015.jpg" class="poster-img"/>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-2">
+                <a href="/movie/id/2322441">
+                    <div class="badge">
+                        <img title="poster" src="{% static "images" %}/2322441.jpg" class="poster-img"/>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="jumbotron">
+                <div class="row">
+                    <div class="col-xs-10">
+                        <input id="txtSearch" type="text" class="form-control" placeholder="Введите название фильма"
+                               value="the matrix">
+                    </div>
+                    <div class="col-xs-2">
+                        <button id="buttonSearchMovies" class="btn btn-primary">
+                            Найти
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -19,12 +70,12 @@
 {% endblock body %}
 
 {% block scripts %}
-  <script type="text/javascript">
-    $('#buttonSearchMovies').click(function () {
-        var query = $('#txtSearch').val();
-        if (query.length > 2) {
-            window.location = "/search/" + query
-        }
-    });
-  </script>
+    <script type="text/javascript">
+        $('#buttonSearchMovies').click(function () {
+            var query = $('#txtSearch').val();
+            if (query.length > 2) {
+                window.location = "/search/" + query
+            }
+        });
+    </script>
 {% endblock scripts %}
