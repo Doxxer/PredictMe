@@ -27,29 +27,32 @@ def handle_actors(actors):
     if len(ans) == 0:
         return [5.0]
     return ans
-    
+
+
 def handle_actors_for_regression(actors):
-	ans = [0,0,0,0]
-	ratings = db.cursor()
-	for act in actors:
-		params = act.split(" ")
-		name = params[1] + ", " + params[0]
-      ratings.execute("""select
-      ratedActors.actor_rating
-      from allNames
-      inner join ratedActors on allNames.person_id = ratedActors.person_id
-      where allNames.name = '{0}';""".format(name))		
-		res =	ratings.fetchone()
-		if res is not None:
-			if res[0] <= 2.5:
-				ans[0] += 1
-			elif res[0] <= 5:
-				ans[1] += 1
-			elif res[0] <= 7.5:
-				ans[2] += 1
-			elif res[0] <= 10:
-				ans[3] += 1
-	return ans
+    ans = [0, 0, 0, 0]
+    ratings = db.cursor()
+    for act in actors:
+        params = act.split(" ")
+        name = params[1] + ", " + params[0]
+        ratings.execute("""select
+        ratedActors.actor_rating
+        from allNames
+        inner join ratedActors on allNames.person_id = ratedActors.person_id
+        where allNames.name = '{0}';""".format(name))
+        res = ratings.fetchone()
+        if res is not None:
+            rait = res[0]
+            if rait <= 2.5:
+                ans[0] += 1
+            elif rait <= 5:
+                ans[1] += 1
+            elif rait <= 7.5:
+                ans[2] += 1
+            else:
+                ans[3] += 1
+        return ans
+
 
 def handle_writers(actors):
     ans = []
@@ -97,7 +100,7 @@ def get_rating(actors, directors, writers):
     ans.append(directors_rating)
     ans.append(writers_rating)
     return tuple(ans), length
-    
+
 
 def get_rating_for_regression(actors, directors, writers):
     ans = handle_actors_for_regression(actors)
@@ -113,5 +116,5 @@ if __name__ == "__main__":
                      ["David Fincher"],
                      ["David Fincher"])
     print get_rating_for_regression(["Keanu Reeves", "Rosamund Pike", "Neil Patrick Harris", "Ben Affleck"],
-                     ["David Fincher"],
-                     ["David Fincher"])
+                                    ["David Fincher"],
+                                    ["David Fincher"])
