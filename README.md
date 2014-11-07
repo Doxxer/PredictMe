@@ -14,4 +14,4 @@ Requirements
  + sudo ./setup.py install
 * Neural networks
  + MySQLdb (python2 module) — https://pypi.python.org/pypi/MySQL-python/
- + pybrain (python2 module) from http://pybrain.org/docs/
+ + pybrain (python2 module) from http://pybrain.org/docs/ (dependency: SciPy module — http://www.scipy.org/install.html)
