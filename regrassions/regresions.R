@@ -7,8 +7,10 @@ changeColNames <- function(data) {
 }
 
 normalizeFilmData <- function(data) {
-  colnames(data) <- c("Film", "Name", "Rating", "Budget", "Year")
-  data$Name <- NULL
+  colnames(data) <- c("X..","Film", "Name", "Year", "Rating", "Budget", "Gener", "Votes")
+  data$X.. <- NULL
+  data$Gener <- NULL
+  data$Votes <- NULL
   data
 }
 
@@ -17,7 +19,7 @@ hasNA <- function(vector.data) {
     if (is.na(data)) {
       return(TRUE)
     }
-      
+    
   }
   return(FALSE)
 }
@@ -57,10 +59,10 @@ meanRating <- function(data, rating.data) {
   return(mean(rating.v))
 }
 
-rating.actors <- read.csv("..//Data//CSV//ratedActors.csv")
-rating.directors <- read.csv("..//Data//CSV//ratedDirectors.csv")
-rating.producers <- read.csv("..//Data//CSV//ratedProducers.csv")
-rating.writers <- read.csv("..//Data//CSV//ratedWriters.csv")
+rating.actors <- read.csv("..//repo/PredictMe//Data//CSV//ratedActors.csv")
+rating.directors <- read.csv("..//repo/PredictMe//Data//CSV//ratedDirectors.csv")
+rating.producers <- read.csv("..//repo/PredictMe//Data//CSV//ratedProducers.csv")
+rating.writers <- read.csv("..//repo/PredictMe//Data//CSV//ratedWriters.csv")
 
 rating.actors <- changeColNames(rating.actors)
 rating.directors <- changeColNames(rating.directors)
@@ -69,13 +71,13 @@ rating.writers <- changeColNames(rating.writers)
 
 
 
-data.movies <- read.csv("..//Data//CSV//allMovies.csv")
+data.movies <- read.csv("..//repo/PredictMe//Data//allMoviesSHORT.csv")
 data.movies <- normalizeFilmData(data.movies)
 
-data.directors <- read.csv("..//Data//DirectorFULL.csv")
-data.actors <- read.csv("..//Data//ActorsFULL.csv")
-data.writers <- read.csv("..//Data//WriterFULL.csv")
-data.producers <- read.csv("..//Data//ProducerFULL.csv")
+data.directors <- read.csv("..//repo/PredictMe//Data//DirectorFULL.csv")
+data.actors <- read.csv("..//repo/PredictMe//Data//ActorsFULL.csv")
+data.writers <- read.csv("..//repo/PredictMe//Data//WriterFULL.csv")
+data.producers <- read.csv("..//repo/PredictMe//Data//ProducerFULL.csv")
 
 data.movies <- getDataFromYear(data.movies, "1990", "2014")
 data.directors <- getDataFromYear(data.directors, "1990", "2014")
@@ -83,8 +85,8 @@ data.actors <- getDataFromYear(data.actors, "1990", "2014")
 data.writers <- getDataFromYear(data.writers, "1990", "2014")
 data.producers <- getDataFromYear(data.producers, "1990", "2014")
 
-groups.films <- levels(factor(data.directors$Film))
-
+groups.films <- data.movies$Film 
+  
 Actor.Group1 <- c()
 Actor.Group2 <- c()
 Actor.Group3 <- c()
@@ -134,7 +136,10 @@ for (cur.film in groups.films) {
     Producer <- c(Producer, producer.mean) 
   }
   step <- step + 1
+  cat(step)
+  cat(" ")
 }
 
 data.regression <- data.frame(Film, Rating, Actor.Group1, Actor.Group2, Actor.Group3, Actor.Group4, Director, Producer, Writer)
 write.csv(data.regression, "DataRegression.csv")
+
