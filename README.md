@@ -15,3 +15,13 @@ Requirements
 * Neural networks
  + MySQLdb (python2 module) — https://pypi.python.org/pypi/MySQL-python/
  + pybrain (python2 module) from http://pybrain.org/docs/ (dependency: SciPy module — http://www.scipy.org/install.html)
+* App server
+ + Django - https://docs.djangoproject.com/en/1.7/intro/install/
+
+How to run
+=========
+```bash
+cd AppServer
+./manage.py runserver
+```
+
