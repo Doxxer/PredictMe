@@ -17,7 +17,13 @@ Requirements
 * App server
  + Django - https://docs.djangoproject.com/en/1.7/intro/install/
  + скачать дамп бд http://dropmefiles.com/cgwYX
- + выполнить mysql -u imdb -p -f imdb < /path/to/imdbFULL.sql
+ + Создать пользователя imdb с паролем imdb и схему с именем imdb (mysql shell):
+ ```sql
+create user 'imdb'@'localhost' identified by 'imdb';
+create schema 'imdb';
+grant all privileges on 'imdb'.* to 'imdb'@'localhost' with grant option;
+ ```
+ + импортировать дамп: mysql -u imdb -p -f imdb < /path/to/imdbFULL.sql
 
 How to run
 =========
