@@ -59,9 +59,9 @@ def fill_subdataset(db, movies_cur, actors_cur, directors_cur, writers_cur, acto
 
 def create_datasets():
     db = MySQLdb.connect(host="localhost",
-                         user="imdb2",
-                         passwd="imdb2",
-                         db="imdb2")
+                         user="imdb",
+                         passwd="imdb",
+                         db="imdb")
 
     movies_cur = db.cursor()
     actors_cur = db.cursor()
