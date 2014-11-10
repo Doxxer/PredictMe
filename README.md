@@ -13,8 +13,8 @@ Requirements
  ```sql
 create user 'imdb'@'localhost' identified by 'imdb';
 create schema 'imdb';
-grant all privileges on 'imdb'.* to 'imdb'@'localhost' with grant option;
- ```
+grant all privileges on imdb.* to imdb@localhost;
+```
  + импортировать дамп: mysql -u imdb -p -f imdb < /path/to/imdbFULL.sql
 * IMDBpy library
  + download from http://imdbpy.sourceforge.net/
