@@ -7,7 +7,7 @@ Requirements
 =========
 
 * Mysql server
- + пароль, имя пользователя, название базы -  imdb2 
+ + пароль, имя пользователя, название базы -  imdbFULL 
 * IMDBpy library
  + download from http://imdbpy.sourceforge.net/
  + sudo ./setup.py install
