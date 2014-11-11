@@ -25,8 +25,9 @@ grant all privileges on imdb.* to imdb@localhost;
 mysql -u imdb -p -f imdb < /path/to/imdbFULL.sql
 ```
 * IMDBpy library
- + download from http://imdbpy.sourceforge.net/
- + sudo ./setup.py install
+```
+sudo pip install imdbpy
+```
 * Neural networks
  + MySQLdb (python2 module) — https://pypi.python.org/pypi/MySQL-python/
  + pybrain (python2 module) from http://pybrain.org/docs/ (dependency: SciPy module — http://www.scipy.org/install.html)
