@@ -5,7 +5,7 @@ SELECT
   m.budget              AS 'Budget',
   avg(act.actor_rating) AS 'Actor',
   avg(dir.actor_rating) AS 'Director',
-  avg(dir.actor_rating) AS 'Writer'
+  avg(wr.actor_rating) AS 'Writer'
 FROM (
        SELECT DISTINCT
          m1.title_id,
