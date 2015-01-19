@@ -16,9 +16,9 @@ def fetch_person(person_name, database, fromTable_name, column_name):
     name = name.replace("'", "''")
     database.execute(u"""select
         {0}.{1}
-        from allNames
-        inner join {0} on allNames.person_id = {0}.person_id
-        where allNames.name = '{2}';""".format(fromTable_name, column_name, name))
+        from Person
+        inner join {0} on Person.person_id = {0}.person_id
+        where Person.name = '{2}';""".format(fromTable_name, column_name, name))
     return database.fetchone()
 
 

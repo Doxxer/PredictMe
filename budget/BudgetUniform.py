@@ -54,7 +54,7 @@ def convert_value(in_currency, in_value):
         if in_currency[0] == 'S' and in_currency[1] == 'E' and in_currency[2] == 'K':
             return valuta['sek'] * in_value
         if in_currency[0] == 'I' and in_currency[1] == 'S' and in_currency[2] == 'K':
-            return valuta['sek'] * in_value
+            return valuta['isk'] * in_value
         if in_currency[0] == 'F' and in_currency[1] == 'R' and in_currency[2] == 'F':
             return valuta['frf'] * in_value
         if in_currency[0] == 'I' and in_currency[1] == 'N' and in_currency[2] == 'R':
@@ -255,13 +255,13 @@ def convert_value(in_currency, in_value):
 
 
 db = MySQLdb.connect(host="localhost"
-                     , user="imdbFULL"
-                     , passwd="imdb"
-                     , db="imdbFULL")
+                     , user="root"
+#                     , passwd="imdb"
+                     , db="imdb")
 
 movies_cur = db.cursor()
 
-movies_cur.execute("""select  *  from allMovies """)
+movies_cur.execute("""select * from Movies""")
 
 update_cursor = db.cursor()
 
@@ -277,12 +277,8 @@ for el in movies_cur:
         print("here", currency, float_value, cur_budget)
         continue
     # print(cv, int(title_id))
-    update_cursor.execute("""UPDATE allMoviesSHORT SET budget = %s WHERE title_id = %s""" % (cv, int(title_id)))
-    db.commit()
+    update_cursor.execute("""UPDATE Movies SET budget = %s WHERE title_id = %s""" % (cv, int(title_id)))
+
+db.commit()
+db.close()
 # movies_cur.execute("""UPDATE allMovies SET budget = 354 WHERE title_id = 2018307""")
-
-
-
-
-if db:
-    db.close()
