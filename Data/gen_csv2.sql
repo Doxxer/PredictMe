@@ -5,14 +5,16 @@ SELECT
   m.budget              AS 'Budget',
   avg(act.actor_rating) AS 'Actor',
   avg(dir.actor_rating) AS 'Director',
-  avg(wr.actor_rating) AS 'Writer'
+  avg(wr.actor_rating)  AS 'Writer',
+  m.popularity          AS 'Popularity'
 FROM (
        SELECT DISTINCT
          m1.title_id,
          m1.rating,
          m1.production_year,
          m1.budget,
-         m1.votes
+         m1.votes,
+         m1.popularity
        FROM Movies m1
      ) m
   INNER JOIN PersonsFULL p ON (p.title_id = m.title_id)
