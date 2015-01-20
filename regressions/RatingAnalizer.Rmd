@@ -22,6 +22,11 @@ rse <- function(r) sqrt(sum(r^2) / (length(r) - 2))
 #data.movie.regr <- read.csv("DataRegressionPercentNew.csv")
 data.movie.train <- read.csv("../repo/PredictMe//Data//csv2//file_2_train.csv")
 data.movie.train <- na.omit(data.movie.train)
+
+corrplot(cor(data.movie.train))
+corrplot.mixed(cor(data.movie.train))
+
+
 data.movie.train <- subset(data.movie.train, data.movie.train$Budget > 2000)
 data.movie.train$Film <- NULL
 data.movie.train$Popularity <- factor(data.movie.train$Popularity, labels = c("false", "true"))
@@ -41,8 +46,6 @@ contrasts(data.movie.test$Popularity) <- contr.sum
 ```{r}
 marginal.plot(data.movie.train)
 marginal.plot(log(data.movie.train$Budget))
-corrplot(cor(data.movie.train))
-corrplot.mixed(cor(data.movie.train))
 
 panel <- function(...) {  
   panel.xyplot(...)
@@ -109,6 +112,6 @@ data.movie.poly.predicted <- predict(model.poly, data.movie.test)
 c(rse(model.poly$residuals), rse(data.movie.poly.predicted - data.movie.test$Rating))
 
 model.poly$coefficients
-log2(2)
+
 ```
 
