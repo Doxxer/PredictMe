@@ -10,15 +10,15 @@ db = MySQLdb.connect(host="localhost",
                      db="imdb")
 
 
-def fetch_person(person_name, database, fromTable_name, column_name):
+def fetch_person(person_name, database, fromTable_name):
     params = person_name.split(" ")
     name = params[1] + ", " + params[0]
     name = name.replace("'", "''")
     database.execute(u"""select
-        {0}.{1}
+        {0}.actor_rating
         from Person
         inner join {0} on Person.person_id = {0}.person_id
-        where Person.name = '{2}';""".format(fromTable_name, column_name, name))
+        where Person.name = '{1}';""".format(fromTable_name, name))
     return database.fetchone()
 
 
@@ -26,7 +26,7 @@ def handle_actors(actors):
     result = []
     db_ratings = db.cursor()
     for act in actors:
-        res = fetch_person(act, db_ratings, "ratedActors", "actor_rating")
+        res = fetch_person(act, db_ratings, "ratedActors")
         if res:
             result.append(res[0])
             if len(result) == 5:
@@ -40,7 +40,7 @@ def handle_actors_for_regression(actors):
     result = [0, 0, 0, 0]
     db_ratings = db.cursor()
     for act in actors:
-        res = fetch_person(act, db_ratings, "ratedActors", "actor_rating")
+        res = fetch_person(act, db_ratings, "ratedActors")
         if res:
             rating = res[0]
             if rating <= 2.5:
@@ -58,7 +58,7 @@ def handle_writers(actors):
     result = []
     db_ratings = db.cursor()
     for act in actors:
-        res = fetch_person(act, db_ratings, "ratedWriters", "writer_rating")
+        res = fetch_person(act, db_ratings, "ratedWriters")
         if res:
             result.append(res[0])
     if len(result) == 0:
@@ -70,7 +70,7 @@ def handle_directors(actors):
     ans = []
     db_ratings = db.cursor()
     for act in actors:
-        res = fetch_person(act, db_ratings, "ratedDirectors", "director_rating")
+        res = fetch_person(act, db_ratings, "ratedDirectors")
         if res:
             ans.append(res[0])
     if len(ans) == 0:
