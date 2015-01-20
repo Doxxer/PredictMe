@@ -1,0 +1,114 @@
+
+---
+title: "Rating"
+output: html_document
+---
+
+
+```{r}
+library(lattice)
+library(MASS)
+library(e1071)
+library(latticeExtra)
+library(corrplot)
+library(knitr)
+library(nnet)
+
+GROUP.COUNT <- 4
+
+
+rse <- function(r) sqrt(sum(r^2) / (length(r) - 2))
+
+#data.movie.regr <- read.csv("DataRegressionPercentNew.csv")
+data.movie.train <- read.csv("../repo/PredictMe//Data//csv2//file_2_train.csv")
+data.movie.train <- na.omit(data.movie.train)
+data.movie.train <- subset(data.movie.train, data.movie.train$Budget > 2000)
+data.movie.train$Film <- NULL
+data.movie.train$Popularity <- factor(data.movie.train$Popularity, labels = c("false", "true"))
+contrasts(data.movie.train$Popularity) <- contr.sum
+contrasts(data.movie.train$Popularity)
+
+data.movie.test <- read.csv("../repo/PredictMe//Data//csv2//file_2_test.csv")
+data.movie.test <- na.omit(data.movie.test)
+data.movie.test <- subset(data.movie.test, data.movie.test$Budget > 2000)
+data.movie.test$Film <- NULL
+data.movie.test$Popularity <- factor(data.movie.test$Popularity, labels = c("false", "true"))
+contrasts(data.movie.test$Popularity) <- contr.sum
+
+```
+
+Бюджет - кандидат на логарифмирование
+```{r}
+marginal.plot(data.movie.train)
+marginal.plot(log(data.movie.train$Budget))
+corrplot(cor(data.movie.train))
+corrplot.mixed(cor(data.movie.train))
+
+panel <- function(...) {  
+  panel.xyplot(...)
+  panel.loess(...)
+}
+xyplot(data.movie.train$Rating ~ data.movie.train$Budget, panel=panel)
+```
+
+
+Линейная модель
+```{r}
+model.linear.general <- lm(Rating ~ ., data = data.movie.train)
+summary(model.linear.general)
+model.linear <- stepAIC(model.linear.general)
+summary(model.linear)
+
+model.poly <- lm(Rating ~ Year + log(Budget) + Actor + Director + Writer + Popularity +  Year:Actor + Year:Director +  log(Budget):Actor + log(Budget):Director + Actor:Director +  Director:Writer, data = data.movie.train)
+summary(model.poly)
+
+data.movie.poly.predicted <- predict(model.poly, data.movie.test)
+c(rse(model.poly$residuals), rse(data.movie.poly.predicted - data.movie.test$Rating))
+```
+
+
+Модель с перекрестным влиянием через stepAIC
+```{r}
+model.poly.general <- lm (Rating ~ .^2, data=data.movie.train)
+summary(model.poly.general)
+model.poly.aic <- stepAIC(model.poly.general)
+summary(model.poly.aic)
+
+data.movie.predicted <- predict(model.poly.aic, data.movie.test)
+c(rse(model.poly.aic$residuals), rse(data.movie.predicted - data.movie.test$Rating))
+max(abs(data.movie.predicted - data.movie.test$Rating))
+```
+
+
+```{r}
+anova(model.linear, model.poly, model.poly.general, model.poly.aic)
+
+
+cv <- function(model) { 
+  tune(lm, model$call$formula, data = data.movie.train, tunecontrol = tune.control(sampling = "cross")) 
+}
+
+cv(model.linear)
+cv(model.poly)
+cv(model.poly.aic)
+
+save(model.linear, file = "model.linear.rda")
+summary(model.linear)
+
+save(model.poly, file = "model.poly.rda")
+summary(model.poly)
+
+
+
+```
+
+
+```{r}
+load("model.poly.rda")
+data.movie.poly.predicted <- predict(model.poly, data.movie.test)
+c(rse(model.poly$residuals), rse(data.movie.poly.predicted - data.movie.test$Rating))
+
+model.poly$coefficients
+log2(2)
+```
+
