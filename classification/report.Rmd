@@ -1,0 +1,98 @@
+
+```{r}
+library(MASS)
+library(lattice)
+library(corrplot)
+library(lattice)
+library(latticeExtra)
+library(impute)
+library(ISLR)
+library(e1071)
+library(nnet)
+library(class)
+options(warn=-1)
+
+make_data <- function(data) {
+  data <- na.omit(data)
+  data$Film <- NULL
+  data$Rating <- round(data$Rating)
+  data$Rating <- factor(data$Rating, levels = 1:10)
+  data <- subset(data, data$Budget > 2000)
+  data$Film <- NULL
+  data$Popularity <- factor(data$Popularity, labels = c("false", "true"))
+  contrasts(data$Popularity) <- contr.sum
+  return (data)
+}
+
+movies.train <- read.csv("../Data/csv2/file_2_train.csv")
+movies.train <- make_data(movies.train)
+names(movies.train)
+
+
+marginal.plot(movies.train)
+marginal.plot(log(movies.train$Budget))
+
+movies.test <- read.csv("../Data/csv2/file_2_test.csv")
+movies.test <- make_data(movies.test)
+
+
+build_and_test_lda <- function(formula) {
+  model <- lda(formula , data = movies.train)
+  print(model)
+
+  print(tune(lda, formula, data = movies.train, predict.func = function(...) predict(...)$class, tunecontrol = tune.control(sampling = "cross",cross = 10)))
+  
+  my.predicted <- predict(model, movies.test)
+  print(table(predicted = my.predicted$class, actual = movies.test$Rating))
+  print(mean(my.predicted$class != movies.test$Rating))
+}
+
+build_and_test_lda(Rating ~ Writer + log(Budget) + Year + Popularity)
+
+build_and_test_bayes <- function(formula) {
+  model <- naiveBayes(formula , data = movies.train)
+  print(model)
+
+  print(tune(naiveBayes, formula, data = movies.train, predict.func = function(...) predict(...), tunecontrol = tune.control(sampling = "cross",cross = 10)))
+  
+  my.predicted <- predict(model, movies.test)
+  print(table(predicted = my.predicted, actual = movies.test$Rating))
+  print(mean(my.predicted != movies.test$Rating))
+}
+
+build_and_test_bayes(Rating ~ .)
+
+build_and_test_multinom <- function(formula) {
+  model <- multinom(formula , data = movies.train, trace = FALSE, maxit = 3000)
+  print(model)
+
+  print(tune(multinom, formula, data = movies.train, trace = FALSE, maxit = 3000, predict.func = function(...) predict(...), tunecontrol = tune.control(sampling = "cross",cross = 10)))
+  
+  my.predicted <- predict(model, movies.test)
+  print(table(predicted = my.predicted, actual = movies.test$Rating))
+
+  return (model)
+}
+mr1 <- build_and_test_multinom(Rating ~ .)
+mr1.aic.formula <- as.formula(stepAIC(mr1))
+m <- build_and_test_multinom(mr1.aic.formula)
+build_and_test_bayes(mr1.aic.formula)
+build_and_test_lda(mr1.aic.formula)
+
+show <- function(m) {
+  xyplot(m$performances[, "error"] ~ log(m$performances[,"cost"]), type = "b")
+}
+
+build_and_test <- function(kernel, ...) {
+  m <- tune.svm(Rating ~ ., data = movies.train, 
+                kernel = kernel, ...)
+  show(m)
+  print(m)
+}
+
+#build_and_test("linear", cost =2^(-10:10)) so slow =(
+
+
+
+```
+
