@@ -5,7 +5,7 @@ from pybrain.supervised.trainers import BackpropTrainer
 from pybrain.datasets import SupervisedDataSet
 import os
 import pickle
-from PredictMe.ratingExtractor.ratingExtractor import get_rating
+from PredictMe.ratingExtractor.ratingExtractor import get_cast_rating_for_neurnets
 
 
 def fill_subdataset(db, movies_cur, actors_cur, directors_cur, writers_cur, actors_num, dataset, minrate, maxrate):
@@ -94,7 +94,7 @@ def trainNetwork(dataset, dim):
 
 
 def computeMovieRating(movie_year, actors, writers, directors):
-    features, actor_dim = get_rating(actors, directors, writers)
+    features, actor_dim = get_cast_rating_for_neurnets(actors, directors, writers)
 
     print features, actor_dim
 

@@ -5,7 +5,7 @@ import urllib
 import imdb
 
 from PredictMe.neurnets.neurnets import computeMovieRating
-from PredictMe.ratingExtractor.ratingExtractor import get_rating_for_regression
+from PredictMe.ratingExtractor.ratingExtractor import get_movie_info_for_regression
 from Web.settings import FAKE_DATA, DUMP_DATA, DEBUG, ACTORS_MAX_COUNT, IMAGES_DIR
 
 
@@ -62,18 +62,18 @@ def get_neutron_rating(year, cast, directors, writers):
     return rating
 
 
-def get_regr_rating(cast, directors, writers):
+def get_regression_rating(year, cast, directors, writers):
     def get_names(dictionary):
         return [person['name'] for person in dictionary][:ACTORS_MAX_COUNT]
 
-    cast = get_names(cast)
-    directors = get_names(directors)
-    writers = get_names(writers)
+    movie_info = get_movie_info_for_regression(year, get_names(cast), get_names(directors), get_names(writers))
+    if not movie_info:
+        return "---"
 
-    features = get_rating_for_regression(cast, directors, writers)
-    print features
+    print movie_info
+    from PredictMe.regression.rating import calc_movie_rating
 
-    return 146.5
+    return round(calc_movie_rating(movie_info), 1)
 
 
 def save_image(movie_id, url):
@@ -117,7 +117,7 @@ def get_movie_info(movie_id):
         'writers': writers,
         'cast': cast,
         'our_rating_neutron': get_neutron_rating(year, cast, directors, writers),
-        'our_rating_regr': get_regr_rating(cast, directors, writers),
+        'our_rating_regr': get_regression_rating(year, cast, directors, writers),
         'imdb_rating': movie_rating,
         'year': year
     }
