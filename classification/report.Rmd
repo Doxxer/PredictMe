@@ -10,31 +10,49 @@ library(ISLR)
 library(e1071)
 library(nnet)
 library(class)
-options(warn=-1)
+```
+
+Готовим данные
+```{r}
 
 make_data <- function(data) {
   data <- na.omit(data)
   data$Film <- NULL
   data$Rating <- round(data$Rating)
-  data$Rating <- factor(data$Rating, levels = 1:10)
+  data$Rating <- cut(data$Rating, breaks = c(1, 2.4, 4.9, 7.4, 10), labels = c("Excellent", "Average", "Poor", "Terrible"))
   data <- subset(data, data$Budget > 2000)
   data$Film <- NULL
-  data$Popularity <- factor(data$Popularity, labels = c("false", "true"))
-  contrasts(data$Popularity) <- contr.sum
+  data$Popularity <- NULL
   return (data)
 }
 
+
+
 movies.train <- read.csv("../Data/csv2/file_2_train.csv")
 movies.train <- make_data(movies.train)
-names(movies.train)
+summary(movies.train$Rating)
 
 
-marginal.plot(movies.train)
-marginal.plot(log(movies.train$Budget))
 
 movies.test <- read.csv("../Data/csv2/file_2_test.csv")
+movies.test <- subset(movies.test, movies.test$Rating < 9.5)
 movies.test <- make_data(movies.test)
+summary(movies.test$Rating)
+levels(movies.test$Rating)
 
+```
+
+Посмотрим на графики
+```{r}
+marginal.plot(movies.train)
+marginal.plot(log(movies.train$Budget))
+marginal.plot(movies.train, data = movies.train, groups = Rating,auto.key = list(lines = TRUE, title ="Rating",cex.title = 1, columns = 3))
+```
+
+Строим модели:
+
+***LDA***
+```{r}
 
 build_and_test_lda <- function(formula) {
   model <- lda(formula , data = movies.train)
@@ -47,8 +65,11 @@ build_and_test_lda <- function(formula) {
   print(mean(my.predicted$class != movies.test$Rating))
 }
 
-build_and_test_lda(Rating ~ Writer + log(Budget) + Year + Popularity)
+build_and_test_lda(Rating ~ .)
+```
 
+***naive bayes***
+```{r}
 build_and_test_bayes <- function(formula) {
   model <- naiveBayes(formula , data = movies.train)
   print(model)
@@ -62,6 +83,12 @@ build_and_test_bayes <- function(formula) {
 
 build_and_test_bayes(Rating ~ .)
 
+```
+
+
+***multinomial regression***
+```{r}
+
 build_and_test_multinom <- function(formula) {
   model <- multinom(formula , data = movies.train, trace = FALSE, maxit = 3000)
   print(model)
@@ -70,29 +97,19 @@ build_and_test_multinom <- function(formula) {
   
   my.predicted <- predict(model, movies.test)
   print(table(predicted = my.predicted, actual = movies.test$Rating))
-
+  print(mean(my.predicted != movies.test$Rating))
   return (model)
 }
-mr1 <- build_and_test_multinom(Rating ~ .)
-mr1.aic.formula <- as.formula(stepAIC(mr1))
-m <- build_and_test_multinom(mr1.aic.formula)
-build_and_test_bayes(mr1.aic.formula)
-build_and_test_lda(mr1.aic.formula)
 
-show <- function(m) {
-  xyplot(m$performances[, "error"] ~ log(m$performances[,"cost"]), type = "b")
-}
-
-build_and_test <- function(kernel, ...) {
-  m <- tune.svm(Rating ~ ., data = movies.train, 
-                kernel = kernel, ...)
-  show(m)
-  print(m)
-}
-
-#build_and_test("linear", cost =2^(-10:10)) so slow =(
-
-
+movies.mn <- build_and_test_multinom(Rating ~ .^2)
 
 ```
 
+Поросим stepAIC выбрать параметры
+```{r}
+
+movies.AIC <- stepAIC(movies.mn);
+movies.mn <- build_and_test_multinom(as.formula(movies.AIC))
+build_and_test_lda(as.formula(movies.AIC))
+```
+Остановимся на модели, построенной методом multinomial regression
